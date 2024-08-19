@@ -7,11 +7,11 @@ const sanitizeInput = (input: string) => {
 
 	// Escape special characters
 	sanitized = sanitized
-		.replace(/&/g, "&amp;")
-		.replace(/</g, "&lt;")
-		.replace(/>/g, "&gt;")
-		.replace(/"/g, "&quot;")
-		.replace(/'/g, "&#039;");
+		.replace(/&/g, "")
+		.replace(/</g, "")
+		.replace(/>/g, "")
+		.replace(/"/g, "")
+		.replace(/'/g, "");
 
 	// Remove event handlers
 	sanitized = sanitized
