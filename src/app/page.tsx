@@ -1,5 +1,6 @@
 "use client";
 import askQuestion from "./lib/fetch";
+import sanitizeInput from "./utils/sanitizeInput";
 import { useState, useEffect, useRef } from "react";
 
 const App = () => {
@@ -14,12 +15,12 @@ const App = () => {
 	// This is referencing the memoryRef so we can scroll to the bottom of the memory.
 	const memoryRef = useRef(null);
 
-async function dataset() {
+	async function dataset() {
 		// When the dataset function is called, setLoading is set to true, the API is called, and then setLoading is set to false.
 		setLoading(true);
 		const response = await askQuestion(inputVal);
-		setLoading(false);
 		console.log(response);
+		setLoading(false);
 		// If the response is undefined, we set the response to "Apologies, I can't respond right now. Please try again later."
 		const newMemory =
 			response.choices[0].message.content === undefined
@@ -32,12 +33,6 @@ async function dataset() {
 					{ text: inputVal, response: response.choices[0].message.content };
 		// We then add the newMemory to the memory array.
 		setMemory((prevMemory) => [...prevMemory, newMemory]);
-	}
-
-	// This function is used to sanitize the input from the user to prevent XSS attacks.
-	function sanitizeInput(input: string) {
-		const sanitized = input.replace(/<script.*?>.*?<\/script>| < | > |/g, "");
-		return sanitized;
 	}
 
 	// This function is used to handle the change in the input value.
@@ -62,9 +57,9 @@ async function dataset() {
 
 	return (
 		<main className="w-screen h-screen bg-slate-800 overflow-x-hidden grid grid-rows-auto-1fr text-slate-50 gap-2">
-			<nav className="w-full h-fit p-2 md:pl-10 bg-slate-900 h-fit">
+			<nav className="hidden md:inline w-full h-fit p-2 md:pl-10 bg-slate-900">
 				<img
-					className="h-[32px] md:h-[48px]"
+					className="md:h-[48px] lg:h-[64px]"
 					src="/PowerFuture.png"
 					alt="logo"
 				/>
