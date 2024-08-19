@@ -1,7 +1,10 @@
 "use client";
+import { Suspense } from "react";
 import askQuestion from "./lib/fetch";
 import sanitizeInput from "./utils/sanitizeInput";
 import { useState, useEffect, useRef } from "react";
+import Response from "./components/Response/Response";
+import Button from "./components/Button/Button";
 
 const App = () => {
 	// The inputVal is storing our users input which we can then send to the API.
@@ -69,49 +72,24 @@ const App = () => {
 					{welcomeMessage}
 				</p>
 				<br />
-				{/* This is the memoryRef that stores the questions and responses. */}
-				<div
-					ref={memoryRef}
-					className="w-full md:w-1/2 rounded-md h-[35em] whitespace-pre-line overflow-y-auto p-5"
-				>
-					{/* This maps over the memory array and displays the questions and responses. */}
-					{memory.map((memory, index) => {
-						const key = Math.random() * index + 1;
-						return (
-							<span className="h-3/4" key={key}>
-								<span className="flex flex-col gap-2">
-									<span className="font-bold px-4 py-2 bg-blue-900 text-slate-50 rounded-full w-fit self-end">
-										{memory.text}
-									</span>{" "}
-									<span className="px-4 py-2 text-slate-50 rounded-full">
-										{memory.response}
-									</span>
-								</span>
-								<br />
-							</span>
-						);
-					})}
-				</div>
+				{(!loading && (
+					<Response memory={memory} memoryRef={memoryRef} loading={loading} />
+				)) || (
+					<div className="w-full md:w-1/2 font-bold text-center rounded-md h-[35em] whitespace-pre-line overflow-y-auto p-5">
+						Just having a think...
+					</div>
+				)}
+
 				<br />
 				<section className="flex flex-row gap-5 justify-center w-3/4">
 					<input
 						type="text"
 						value={inputVal}
-						// When the inputVal changes, we set the inputVal to the value of the input.
 						onChange={handleChange}
-						// When the input is clicked, we select the text.
 						onFocus={(e) => e.target.select()}
 						className="border-blue-200 px-4 py-2 border-2 rounded-md w-1/2 bg-slate-900"
 					/>
-					<button
-						className="text-slate-50 bg-blue-900 hover:bg-blue-400 transition-all duration-1000 px-4 py-2 rounded-md"
-						type="button"
-						// When the button is clicked, we call the dataset function.
-						onClick={() => dataset()}
-					>
-						{/* If loading is true, we display "Thinking...", otherwise we display "Submit". */}
-						{loading ? "Thinking..." : "Submit"}
-					</button>
+					<Button onClick={() => dataset()} loading={loading} />
 				</section>
 			</section>
 		</main>
