@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
         });
 
         if (!response.ok) {
+            console.error("Can't access API");
             const errorText = await response.text();
             console.error(`Error fetching chat completion: HTTP error! status: ${response.status}, body: ${errorText}`);
             return NextResponse.json({ message: errorText }, { status: response.status });
