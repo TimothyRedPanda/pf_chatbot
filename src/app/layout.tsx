@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Powering Futures",
-	description: "Codefest 2024 - Hackathon Entry",
+	title: "Red Panda Chat",
+	description: "Base on the our intial Codefest 2024 Entry",
 };
 
 export default function RootLayout({
