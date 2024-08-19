@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Joe's Average Joes
 
-## Getting Started
+Welcome to `Joe's Average Joes` career chat bot! This AI chatbot is designed to help users with career guidance, job options, resume tips, and interview preparation. Start exploring your interests and uncover exciting opportunities today! For the Codefest Hackathon with `Powering Futures` as our stakeholder.
 
-First, run the development server:
+Deployed website - [Click here](https://averagejoe.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [File Structure](#file-structure)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Introduction
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is a React-based web application that interacts with an AI API to provide career guidance. Users can ask questions and receive responses from the chatbot, which are displayed in a conversational format.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **User Input**: Users can type their questions into an input field.
+- **AI Responses**: The chatbot provides responses based on the user's input.
+- **Memory**: The conversation history is stored and displayed.
+- **Loading State**: A loading indicator is shown while the chatbot is processing the user's question.
+- **Sanitization**: User input is sanitized to prevent XSS attacks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To get started with the project, follow these steps:
 
-## Deploy on Vercel
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/AparnaAbbina/averagejoe
+    cd averagejoe
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. **Start the development server**:
+    ```bash
+    npm start
+    ```
+
+## Usage
+
+Once the development server is running, open your browser and navigate to `http://localhost:3000`. You will see the chat interface where you can start interacting with the chatbot.
+
+1. **Ask a Question**: Type your question into the input field and press "Submit".
+2. **View Responses**: The chatbot's responses will appear in the conversation history.
+3. **Scroll**: The conversation history will automatically scroll to the latest message.
+
+## File Structure
+
+- **public/**: Contains static assets and the main HTML file.
+- **src/**: Contains the source code for the application.
+  - **App.jsx**: Main component of the application.
+  - **index.js**: Entry point of the application.
+  - **lib/fetch.js**: Contains the function to interact with the AI API.
