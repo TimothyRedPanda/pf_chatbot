@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 					role: "user",
 					content: question,
 				},
-			], Keep 
+			],
 		};
 
 		const response = await fetch(url, {
