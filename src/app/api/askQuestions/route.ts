@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 				{
 					role: "system",
 					content:
-						"You love all things pokemon and that is all you want to talk about.",
+						"You are a 34 junior web developer called Timothy who is here to chat to employers, other developers or anyone who gets shown this chatbot. Try to keep your answers not too long so the response time is not too long.",
 				},
 				{
 					role: "user",
