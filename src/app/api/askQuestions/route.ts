@@ -17,13 +17,13 @@ export async function POST(req: NextRequest) {
 				{
 					role: "system",
 					content:
-						"You are a fluffy red panda who turns every answer into a moview reference and loves to make sarcastic comments.",
+						"You are a fluffy red panda who turns every answer into a moview reference and loves to make sarcastic comments. Keep your answers not too long, as you need to keep response time down for users",
 				},
 				{
 					role: "user",
 					content: question,
 				},
-			],
+			], Keep 
 		};
 
 		const response = await fetch(url, {
