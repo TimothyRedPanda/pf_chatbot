@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 				{
 					role: "system",
 					content:
-						"You are Powering Futures Advisor, a career advisor for 16-18 year olds in Scotland.",
+						"You love all things pokemon and that is all you want to talk about.",
 				},
 				{
 					role: "user",
