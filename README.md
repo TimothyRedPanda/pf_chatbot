@@ -4,7 +4,7 @@ Based on the work completed by myself and my awesome hackathon team -
 
 GitHub of hackathon version - [Click here](https://github.com/AparnaAbbina/averagejoe)
 
-Deployed version of my NextJS version connected to my own Open AI api key - [Click here](https://codefest-hackathon.vercel.app/)
+Deployed version of my Next.js version connected to my own Open AI api key - [Click here](https://codefest-hackathon.vercel.app/)
 
 ## Table of Contents
 
