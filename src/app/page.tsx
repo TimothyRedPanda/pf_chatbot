@@ -8,7 +8,7 @@ import Button from "./components/Button/Button";
 
 const App = () => {
 	// The inputVal is storing our users input which we can then send to the API.
-	const [inputVal, setInputVal] = useState("Hey, what's your name?");
+	const [inputVal, setInputVal] = useState("");
 	// This is storing our memory, allowing us a list of the questions and responses.
 	const [memory, setMemory] = useState<{ text: string; response: string }[]>(
 		[],
@@ -55,9 +55,7 @@ const App = () => {
 	}, [memory]);
 
 	// This is the welcome message that is displayed when the user first loads the page.
-	const welcomeMessage =
-		"Welcome to Powering Futures' career chat bot! Looking for guidance on your career path? Our AI chatbot is here to help! Ask questions about job options, resume tips, and interview prep. Start exploring your interests and uncover exciting opportunities today!";
-
+	const welcomeMessage = "Welcome, feel free to have a chat!"
 	return (
 		<main className="w-screen h-screen bg-slate-800 overflow-x-hidden grid grid-rows-auto-1fr text-slate-50 gap-2">
 			<section className="w-full p-4 flex flex-col gap-2 items-center">
