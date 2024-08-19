@@ -24,33 +24,9 @@ This project is a React-based web application that interacts with an AI API to p
 - **Loading State**: A loading indicator is shown while the chatbot is processing the user's question.
 - **Sanitization**: User input is sanitized to prevent XSS attacks.
 
-## Installation
+## Visit
 
-To get started with the project, follow these steps:
-
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/AparnaAbbina/averagejoe
-    cd averagejoe
-    ```
-
-2. **Install dependencies**:
-    ```bash
-    npm install
-    ```
-
-3. **Start the development server**:
-    ```bash
-    npm start
-    ```
-
-## Usage
-
-Once the development server is running, open your browser and navigate to `http://localhost:3000`. You will see the chat interface where you can start interacting with the chatbot.
-
-1. **Ask a Question**: Type your question into the input field and press "Submit".
-2. **View Responses**: The chatbot's responses will appear in the conversation history.
-3. **Scroll**: The conversation history will automatically scroll to the latest message.
+[Live Chatbot](https://codefest-hackathon.vercel.app/)
 
 ## File Structure
 
