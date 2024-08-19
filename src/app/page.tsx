@@ -61,19 +61,19 @@ const App = () => {
 		"Welcome to Powering Futures' career chat bot! Looking for guidance on your career path? Our AI chatbot is here to help! Ask questions about job options, resume tips, and interview prep. Start exploring your interests and uncover exciting opportunities today!";
 
 	return (
-		<main className="w-screen h-screen grid grid-rows-auto-1fr gap-2">
+		<main className="w-screen h-screen bg-slate-800 grid grid-rows-auto-1fr text-slate-50 gap-2">
 			<nav className="w-full h-fit p-2 md:pl-10 bg-slate-900 h-fit">
 				<img className="h-[56px]" src="/PowerFuture.png" alt="logo" />
 			</nav>
 			<section className="w-full p-4 flex flex-col gap-2 items-center">
-				<p className="font-bold text-slate-900 w-3/4 text-center">
+				<p className="font-bold w-full md:w-1/2 text-center">
 					{welcomeMessage}
 				</p>
 				<br />
 				{/* This is the memoryRef that stores the questions and responses. */}
 				<div
 					ref={memoryRef}
-					className="w-full md:w-3/4 rounded-md h-[35em] whitespace-pre-line overflow-y-auto border border-blue-200 p-5"
+					className="w-full md:w-1/2 rounded-md h-[35em] whitespace-pre-line overflow-y-auto p-5"
 				>
 					{/* This maps over the memory array and displays the questions and responses. */}
 					{memory.map((memory, index) => {
@@ -81,8 +81,12 @@ const App = () => {
 						return (
 							<span key={key}>
 								<span className="flex flex-col gap-2">
-									<span className="font-bold">{memory.text}</span>{" "}
-									{memory.response}
+									<span className="font-bold px-4 py-2 bg-blue-900 text-slate-50 rounded-full w-fit self-end">
+										{memory.text}
+									</span>{" "}
+									<span className="px-4 py-2 text-slate-50 rounded-full">
+										{memory.response}
+									</span>
 								</span>
 								<br />
 							</span>
@@ -98,10 +102,10 @@ const App = () => {
 						onChange={handleChange}
 						// When the input is clicked, we select the text.
 						onFocus={(e) => e.target.select()}
-						className="border-blue-200 px-4 py-2 border-2 rounded-md w-1/2"
+						className="border-blue-200 px-4 py-2 border-2 rounded-md w-1/2 bg-slate-900"
 					/>
 					<button
-						className="text-slate-200 hover:text-slate-50 bg-blue-400 hover:bg-blue-900 transition-all duration-1000 px-4 py-2 rounded-md"
+						className="text-slate-50 bg-blue-900 hover:bg-blue-400 transition-all duration-1000 px-4 py-2 rounded-md"
 						type="button"
 						// When the button is clicked, we call the dataset function.
 						onClick={() => dataset()}
