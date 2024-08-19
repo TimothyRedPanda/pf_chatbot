@@ -1,4 +1,4 @@
-# Red Panda chatbot - Based on Joe's Average Joes
+# Red Panda chat - Based on Joe's Average Joes
 
 Based on the work completed by myself and my awesome hackathon team -
 
