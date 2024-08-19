@@ -10,8 +10,7 @@ const sanitizeInput = (input: string) => {
 		.replace(/&/g, "")
 		.replace(/</g, "")
 		.replace(/>/g, "")
-		.replace(/"/g, "")
-		.replace(/'/g, "");
+		.replace(/"/g, "");
 
 	// Remove event handlers
 	sanitized = sanitized
