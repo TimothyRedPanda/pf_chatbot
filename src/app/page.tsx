@@ -1,113 +1,118 @@
-import Image from "next/image";
+"use client";
+import askQuestion from "../../lib/fetch";
+import { useState, useEffect, useRef } from "react";
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+const App = () => {
+	// The inputVal is storing our users input which we can then send to the API.
+	const [inputVal, setInputVal] = useState("Hey, what's your name?");
+	// This is storing our memory, allowing us a list of the questions and responses.
+	const [memory, setMemory] = useState<{ text: string; response: string }[]>(
+		[],
+	);
+	// If this is set to true, our Button will display "Thinking..." instead of "Submit".
+	const [loading, setLoading] = useState(false);
+	// This is referencing the memoryRef so we can scroll to the bottom of the memory.
+	const memoryRef = useRef(null);
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+	async function dataset() {
+		// When the dataset function is called, setLoading is set to true, the API is called, and then setLoading is set to false.
+		setLoading(true);
+		const response = await askQuestion(inputVal);
+		setLoading(false);
+		console.log(response);
+		// If the response is undefined, we set the response to "Apologies, I can't respond right now. Please try again later."
+		const newMemory =
+			response.choices[0].message.content === undefined
+				? {
+						text: inputVal,
+						response:
+							"Apologies, I can't respond right now. Please try again later.",
+					}
+				: // Otherwise, we set the response to the response from the API.
+					{ text: inputVal, response: response.choices[0].message.content };
+		// We then add the newMemory to the memory array.
+		setMemory((prevMemory) => [...prevMemory, newMemory]);
+	}
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+	// This function is used to sanitize the input from the user to prevent XSS attacks.
+	function sanitizeInput(input: string) {
+		const sanitized = input.replace(/<script.*?>.*?<\/script>| < | > |/g, "");
+		return sanitized;
+	}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+	// This function is used to handle the change in the input value.
+	function handleChange(e: { target: { value: string } }) {
+		const sanitizedInput = sanitizeInput(e.target.value);
+		setInputVal(sanitizedInput);
+	}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+	// This useEffect is used to scroll to the bottom of the memoryRef when the memory changes.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Needs to run on memory change
+	useEffect(() => {
+		if (memoryRef.current) {
+			(memoryRef.current as HTMLDivElement).scrollTop = (
+				memoryRef.current as HTMLDivElement
+			).scrollHeight;
+		}
+	}, [memory]);
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
-}
+	// This is the welcome message that is displayed when the user first loads the page.
+	const welcomeMessage =
+		"Welcome to Powering Futures' career chat bot! Looking for guidance on your career path? Our AI chatbot is here to help! Ask questions about job options, resume tips, and interview prep. Start exploring your interests and uncover exciting opportunities today!";
+
+	return (
+		<main className="w-screen h-screen grid grid-rows-auto-1fr gap-2">
+			<nav className="w-full h-fit p-2 md:pl-10 bg-slate-900 h-fit">
+				<img className="h-[56px]" src="/PowerFuture.png" alt="logo" />
+			</nav>
+			<section className="w-full p-4 flex flex-col gap-2 items-center">
+				<p className="font-bold text-slate-900 w-3/4 text-center">
+					{welcomeMessage}
+				</p>
+				<br />
+				{/* This is the memoryRef that stores the questions and responses. */}
+				<div
+					ref={memoryRef}
+					className="w-full md:w-3/4 rounded-md h-[35em] whitespace-pre-line overflow-y-auto border border-blue-200 p-5"
+				>
+					{/* This maps over the memory array and displays the questions and responses. */}
+					{memory.map((memory, index) => {
+						const key = Math.random() * index + 1;
+						return (
+							<span key={key}>
+								<span className="flex flex-col gap-2">
+									<span className="font-bold">{memory.text}</span>{" "}
+									{memory.response}
+								</span>
+								<br />
+							</span>
+						);
+					})}
+				</div>
+				<br />
+				<section className="flex flex-row gap-5 justify-center w-3/4">
+					<input
+						type="text"
+						value={inputVal}
+						// When the inputVal changes, we set the inputVal to the value of the input.
+						onChange={handleChange}
+						// When the input is clicked, we select the text.
+						onFocus={(e) => e.target.select()}
+						className="border-blue-200 px-4 py-2 border-2 rounded-md w-1/2"
+					/>
+					<button
+						className="text-slate-200 hover:text-slate-50 bg-blue-400 hover:bg-blue-900 transition-all duration-1000 px-4 py-2 rounded-md"
+						type="button"
+						// When the button is clicked, we call the dataset function.
+						onClick={() => dataset()}
+					>
+						{/* If loading is true, we display "Thinking...", otherwise we display "Submit". */}
+						{loading ? "Thinking..." : "Submit"}
+					</button>
+				</section>
+			</section>
+		</main>
+	);
+};
+
+export default App;
