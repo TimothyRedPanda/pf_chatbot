@@ -61,12 +61,16 @@ const App = () => {
 		"Welcome to Powering Futures' career chat bot! Looking for guidance on your career path? Our AI chatbot is here to help! Ask questions about job options, resume tips, and interview prep. Start exploring your interests and uncover exciting opportunities today!";
 
 	return (
-		<main className="w-screen h-screen bg-slate-800 grid grid-rows-auto-1fr text-slate-50 gap-2">
+		<main className="w-screen h-screen bg-slate-800 overflow-x-hidden grid grid-rows-auto-1fr text-slate-50 gap-2">
 			<nav className="w-full h-fit p-2 md:pl-10 bg-slate-900 h-fit">
-				<img className="h-[56px]" src="/PowerFuture.png" alt="logo" />
+				<img
+					className="h-[32px] md:h-[48px]"
+					src="/PowerFuture.png"
+					alt="logo"
+				/>
 			</nav>
 			<section className="w-full p-4 flex flex-col gap-2 items-center">
-				<p className="font-bold w-full md:w-1/2 text-center">
+				<p className="font-bold text-size-sm w-full md:w-1/2 text-center">
 					{welcomeMessage}
 				</p>
 				<br />
@@ -79,7 +83,7 @@ const App = () => {
 					{memory.map((memory, index) => {
 						const key = Math.random() * index + 1;
 						return (
-							<span key={key}>
+							<span className="h-3/4" key={key}>
 								<span className="flex flex-col gap-2">
 									<span className="font-bold px-4 py-2 bg-blue-900 text-slate-50 rounded-full w-fit self-end">
 										{memory.text}

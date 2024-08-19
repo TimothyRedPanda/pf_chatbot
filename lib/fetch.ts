@@ -1,7 +1,7 @@
 async function askQuestion(question: string) {
 	const url = "https://api.openai.com/v1/chat/completions";
 	const headers = {
-		Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
+		Authorization: `Bearer ${process.env.NEXT_PUBLIC_CHAT_API}`,
 		"Content-Type": "application/json",
 	};
 
