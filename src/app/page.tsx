@@ -60,13 +60,6 @@ const App = () => {
 
 	return (
 		<main className="w-screen h-screen bg-slate-800 overflow-x-hidden grid grid-rows-auto-1fr text-slate-50 gap-2">
-			<nav className="hidden md:inline w-full h-fit p-2 md:pl-10 bg-slate-900">
-				<img
-					className="md:h-[48px] lg:h-[64px]"
-					src="/PowerFuture.png"
-					alt="logo"
-				/>
-			</nav>
 			<section className="w-full p-4 flex flex-col gap-2 items-center">
 				<p className="font-bold text-size-sm w-full md:w-1/2 text-center">
 					{welcomeMessage}
