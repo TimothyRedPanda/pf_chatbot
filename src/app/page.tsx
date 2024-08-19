@@ -1,5 +1,5 @@
 "use client";
-import askQuestion from "../../lib/fetch";
+import askQuestion from "./lib/fetch";
 import { useState, useEffect, useRef } from "react";
 
 const App = () => {
@@ -15,24 +15,37 @@ const App = () => {
 	const memoryRef = useRef(null);
 
 	async function dataset() {
-		// When the dataset function is called, setLoading is set to true, the API is called, and then setLoading is set to false.
-		setLoading(true);
-		const response = await askQuestion(inputVal);
-		setLoading(false);
-		console.log(response);
-		// If the response is undefined, we set the response to "Apologies, I can't respond right now. Please try again later."
-		const newMemory =
-			response.choices[0].message.content === undefined
-				? {
-						text: inputVal,
-						response:
-							"Apologies, I can't respond right now. Please try again later.",
-					}
-				: // Otherwise, we set the response to the response from the API.
-					{ text: inputVal, response: response.choices[0].message.content };
-		// We then add the newMemory to the memory array.
-		setMemory((prevMemory) => [...prevMemory, newMemory]);
-	}
+    try {
+        setLoading(true);
+        console.log("Calling askQuestion with input:", inputVal);
+        const response = await askQuestion(inputVal);
+        console.log("Received response:", response);
+        setLoading(false);
+
+        let newMemory;
+        if (response.status !== 200 || response.choices[0].message.content === undefined) {
+            newMemory = {
+                text: inputVal,
+                response: "Apologies, I can't respond right now. Please try again later.",
+            };
+        } else {
+            newMemory = {
+                text: inputVal,
+                response: response.choices[0].message.content,
+            };
+        }
+
+        setMemory((prevMemory) => [...prevMemory, newMemory]);
+    } catch (error) {
+        console.error("Error in dataset function:", error);
+        setLoading(false);
+        const newMemory = {
+            text: inputVal,
+            response: "Apologies, I can't respond right now. Please try again later.",
+        };
+        setMemory((prevMemory) => [...prevMemory, newMemory]);
+    }
+}
 
 	// This function is used to sanitize the input from the user to prevent XSS attacks.
 	function sanitizeInput(input: string) {
