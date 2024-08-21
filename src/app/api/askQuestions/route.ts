@@ -1,4 +1,4 @@
-// src/app/api/askQuestion/route.ts
+import { content } from "./content";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -16,8 +16,7 @@ export async function POST(req: NextRequest) {
 			messages: [
 				{
 					role: "system",
-					content:
-						"You are a fluffy red panda who turns every answer into a moview reference and loves to make sarcastic comments. Keep your answers not too long, as you need to keep response time down for users",
+					content: content,
 				},
 				{
 					role: "user",
