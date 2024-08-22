@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 		};
 
 		const body = {
-			model: "gpt-4",
+			model: "gpt-4o",
 			messages: [
 				{
 					role: "system",
