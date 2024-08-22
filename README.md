@@ -26,10 +26,6 @@ This project is a React-based web application that interacts with an AI API to p
 - **Loading State**: A loading indicator is shown while the chatbot is processing the user's question.
 - **Sanitization**: User input is sanitized to prevent XSS attacks.
 
-## Visit
-
-[Live Chatbot](https://codefest-hackathon.vercel.app/)
-
 ## File Structure
 
 - **public/**: Contains static assets and the main HTML file.
