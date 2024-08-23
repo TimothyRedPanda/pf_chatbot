@@ -1,5 +1,4 @@
 "use client";
-import { Suspense } from "react";
 import askQuestion from "./lib/fetch";
 import sanitizeInput from "./utils/sanitizeInput";
 import { useState, useEffect, useRef } from "react";
