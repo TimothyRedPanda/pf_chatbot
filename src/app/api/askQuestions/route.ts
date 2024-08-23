@@ -22,7 +22,8 @@ export async function POST(req: NextRequest) {
 					role: "user",
 					content: question,
 				},
-			], // Add the max-tokens parameter here
+			],
+			max_tokens: 250, // Add the max-tokens parameter here
 		};
 
 		const response = await fetch(url, {
